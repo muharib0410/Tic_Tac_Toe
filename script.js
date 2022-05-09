@@ -23,7 +23,17 @@ window.addEventListener('DOMContentLoaded', () => {
         [0,4,8],
         [2,4,6]
     ];
-    
+
+
+    const userAction =  ((tile, index) => {
+        if(isValidAction(tile) && isGameActive) {
+            tile.innerText = currentPlayer;
+            tile.classList.add(`player${currentPlayer}`);
+            updateBoard(index);
+            handleResulValidation();
+            changePlayer();
+        }
+    })
     resetButton.addEventListener('click', resetBoard);
 });
 
