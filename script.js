@@ -47,6 +47,7 @@ window.addEventListener('DOMContentLoaded', () => {
         isGameActive = false;
         return;
     }
+
     if (!board.includes('')) {
         announce(TIE);
     }
@@ -66,6 +67,17 @@ window.addEventListener('DOMContentLoaded', () => {
         announcer.classList.remove('hide');
     }
 
+    const isValidAction = (tile) => {
+        if(tile.innerText === 'X' || tile.innerText ==='O'){
+            return false;
+        }
+        return true;
+    };
+
+    const updateBoard = (index) => {
+        board[index] = currentPlayer;
+    }
+
     const changePlayer = () => {
         playerDisplay.classList.remove(`player${currentPlayer}`);
         currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
@@ -75,7 +87,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
-    const userAction =  ((tile, index) => {
+    const userAction =  (tile, index) => {
         if(isValidAction(tile) && isGameActive) {
             tile.innerText = currentPlayer;
             tile.classList.add(`player${currentPlayer}`);
@@ -83,7 +95,27 @@ window.addEventListener('DOMContentLoaded', () => {
             handleResulValidation();
             changePlayer();
         }
-    })
+    }
+
+    const resetBoard = () => {
+        board  =['', '', '', '', '', '', '', '', '',];
+        isGameActive = true;
+        announcer.classList.add('hide');
+
+        if (currentPlayer === 'O') {
+            changePlayer();
+        }
+
+        tiles.forEach(tile => {
+            tile.innerText ='';
+            tile.classList.remove('playerX');
+            tile.classList.remove('playerO');
+
+        });
+    }
+
+
+
     resetButton.addEventListener('click', resetBoard);
 });
 
