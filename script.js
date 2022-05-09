@@ -31,7 +31,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const a = board[winCondition[0]];
         const b = board[winCondition[1]];
         const c = board[winCondition[2]];
-        if (a === '' || c === '') {
+        if (a === '' || b=== ''||  c === '') {
             continue;
         }
         if (a === b && b === c) {
@@ -40,15 +40,13 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
    
-    }
-
     if (roundWon) {
         announce(currentPlayer === 'X' ? PLAYERX_WON: PLAYERO_WON);
         isGameActive = false;
         return;
     }
 
-    if (!board.includes('')) {
+    if (!board.includes('')) 
         announce(TIE);
     }
 
@@ -56,13 +54,13 @@ window.addEventListener('DOMContentLoaded', () => {
     const announce = (type) => {
         switch(type) {
             case PLAYERO_WON:
-                announcer.innerHTML = 'Player <span class= "playerO>" O </span> Won';
+                announcer.innerHTML = 'Player <span class= "playerO"> O </span> Won';
                 break; 
             case PLAYERX_WON:
-                announcer.innerHTML = 'Player <span class= "playerX>" X </span> Won';
+                announcer.innerHTML = 'Player <span class= "playerX"> X </span> Won';
                 break; 
             case TIE: 
-                announcer.innerHTML = 'Tie';
+                announcer.innerText = 'Tie';
         }
         announcer.classList.remove('hide');
     }
@@ -114,7 +112,9 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
+    tiles.forEach( (tile, index) => {
+        tile.addEventListener('click', () => userAction(tile, index));
+    });
 
     resetButton.addEventListener('click', resetBoard);
 });
